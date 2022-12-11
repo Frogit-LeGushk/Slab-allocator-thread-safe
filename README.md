@@ -1,4 +1,4 @@
-## Dynamic thread-safe allocator like as 'malloc'
+## Slab-allocator-thread-safe
 ```console
 /***************************************
  * SLAB allocator                      *
