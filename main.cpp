@@ -75,11 +75,16 @@ struct pthread_lock_quard {
     pthread_lock_quard(pthread_mutex_t& mtx) : mtx_(mtx) {
         pthread_mutex_lock(&mtx_); }
     ~pthread_lock_quard() {
-        pthread_mutex_unlock(&mtx_); }
+		if (!isUnlocked_)
+        	pthread_mutex_unlock(&mtx_); 
+	}
     void manual_unlock() {
-        pthread_mutex_unlock(&mtx_); }
+        pthread_mutex_unlock(&mtx_); 
+		isUnlocked_ = true;
+	}
 private:
     pthread_mutex_t& mtx_;
+	bool isUnlocked_ = false;
 };
 
 static pthread_mutex_t MTX = PTHREAD_MUTEX_INITIALIZER;
